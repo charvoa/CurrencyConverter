@@ -700,6 +700,7 @@
 			baseConfigurationReference = 25D86D70602244A4818BD7AD /* Pods-CurrencyConverter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8UQ94H3C99;
 				INFOPLIST_FILE = CurrencyConverter/Info.plist;
@@ -719,6 +720,7 @@
 			baseConfigurationReference = B9270A2E35C3E40238133C0F /* Pods-CurrencyConverter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8UQ94H3C99;
 				INFOPLIST_FILE = CurrencyConverter/Info.plist;
