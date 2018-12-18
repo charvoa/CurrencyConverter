@@ -9,17 +9,18 @@
 import Foundation
 
 extension String {
-    func doubleValueWithComma() -> Double? {
-        let formatter = NumberFormatter()
-        formatter.decimalSeparator = ","
+    static let numberFormatter = NumberFormatter()
 
-        return formatter.number(from: self)?.doubleValue
-    }
-
-    func truncated() -> String {
-        if count >= 9 {
-            return "..." + self[index(endIndex, offsetBy: -8)...]
+    var doubleValue: Double? {
+        String.numberFormatter.decimalSeparator = "."
+        if let result =  String.numberFormatter.number(from: self) {
+            return result.doubleValue
+        } else {
+            String.numberFormatter.decimalSeparator = ","
+            if let result = String.numberFormatter.number(from: self) {
+                return result.doubleValue
+            }
         }
-        return self
+        return nil
     }
 }

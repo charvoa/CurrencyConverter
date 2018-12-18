@@ -45,7 +45,7 @@ class CurrencyConverterCollectionViewCell: UICollectionViewCell, NibReusable {
             currencyTextField.placeholder = "0"
         }
 
-        currencyTextField.adjustsFontSizeToFitWidth = true
+        currencyTextField.adjustsFontSizeToFitWidth = false
         currencyTextField.font = UIFont.systemFont(ofSize: 27)
         currencyTextField.keyboardType = .decimalPad
         currencyTextField.textAlignment = .right
@@ -91,13 +91,17 @@ extension CurrencyConverterCollectionViewCell: UITextFieldDelegate {
         guard textField is CurrencyTextField else { return false }
         guard let text = textField.text else { return true }
 
+        let didPressBackspace = range.length == 1 && string.count == 0
+
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
 
         let count = text.count + string.count - range.length
-        guard count <= 10 else { return false }
 
-        delegate?.cellIsEditing(newString)
+        if count <= 9 || didPressBackspace {
+            delegate?.cellIsEditing(newString)
+            return true
+        }
 
-        return true
+        return false
     }
 }

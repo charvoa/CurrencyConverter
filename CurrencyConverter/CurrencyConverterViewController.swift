@@ -108,6 +108,13 @@ extension CurrencyConverterViewController: UICollectionViewDelegate, UICollectio
         })
     }
 
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        let topCell = collectionView
+            .cellForItem(at: IndexPath(item: 0, section: 0)) as? CurrencyConverterCollectionViewCell
+
+        topCell?.endEditing()
+    }
+
     func update() {
         isUpdating = true
         currencyService.updateCurrencies(withBase: currencyService.currencies.first?.title) { [weak self] (success) in
@@ -124,7 +131,7 @@ extension CurrencyConverterViewController: UICollectionViewDelegate, UICollectio
 extension CurrencyConverterViewController: CurrencyConverterCollectionViewCellDelegate {
     func cellIsEditing(_ text: String?) {
         guard
-            let doubleValue = text?.doubleValueWithComma() else {
+            let doubleValue = text?.doubleValue else {
                 dispatchService.stop()
                 currencyService.resetCurrencies()
                 collectionView.reloadData(withOffset: 0, max: currencyService.currencies.count)

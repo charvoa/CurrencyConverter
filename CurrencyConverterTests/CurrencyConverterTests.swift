@@ -11,24 +11,22 @@ import XCTest
 
 class CurrencyConverterTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testCurrencyViewModel() {
+        let currencyModel = CurrencyModel(title: "EUR", baseValue: 1.0)
+        let currencyViewModel = CurrencyViewModel(currencyModel)
+
+        XCTAssertEqual(currencyViewModel.fullName, "Euro")
+        XCTAssertEqual(currencyViewModel.title, "EUR")
+        XCTAssertEqual(currencyViewModel.currentValue, nil)
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    func testCurrencyConverter() {
+        let gbpModel = CurrencyModel(title: "GBP", baseValue: 1.11)
+        let converterService = ConverterService()
+        converterService.base = "GBP"
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        let result = converterService.convert(3, gbpModel.baseValue)
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        XCTAssertEqual(result, 3*1.11)
     }
-
 }

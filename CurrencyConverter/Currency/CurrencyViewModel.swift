@@ -19,6 +19,9 @@ struct CurrencyViewModel {
         self.title = model.title
         self.fullName = model.fullName
         self.image = UIImage(named: model.title)
-        self.currentValue = (model.currentValue != nil) ? String(format: "%.2f", model.currentValue!) : nil
+        self.currentValue =
+            (model.currentValue != nil)
+            ? String(format: "%.2f", model.currentValue!)
+            : nil
     }
 }
