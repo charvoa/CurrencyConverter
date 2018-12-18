@@ -9,7 +9,14 @@
 import Foundation
 import Alamofire
 
-final class APIClient: NSObject {
+protocol TestableAPI: class {
+    var baseURL: URL? { get set }
+
+    func setup(withURL urlString: String)
+    func get(_ url: URL, completion: @escaping (NSDictionary?, Error?) -> Void)
+}
+
+final class APIClient: NSObject, TestableAPI {
     var baseURL: URL?
 
     static let shared = APIClient()
@@ -22,8 +29,8 @@ final class APIClient: NSObject {
     }
 }
 
-private extension APIClient {
-    func get(_ url: URL, completion: @escaping (NSDictionary?, Error?) -> Void) {
+extension APIClient {
+    internal func get(_ url: URL, completion: @escaping (NSDictionary?, Error?) -> Void) {
         Alamofire.request(url, method: .get, parameters: [:])
             .validate(statusCode: 200..<300)
             .responseJSON { responseJSON in
@@ -39,9 +46,6 @@ private extension APIClient {
                 }
         }
     }
-}
-
-extension APIClient {
 
     func fetchRates(_ base: String = "AUD", completion: @escaping (NSDictionary?, Error?) -> Void) {
 
